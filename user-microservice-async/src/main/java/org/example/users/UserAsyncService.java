@@ -13,8 +13,9 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class UserAsyncService {
 
-    private final String userDetailsMicroservice = "http://user-details-microservice/api/v1/users/";
-    private final String userCareerMicroservice = "http://user-career-microservice/api/v1/users/";
+    //    private final String userDetailsMicroservice = "http://user-details-microservice/api/v1/users/";
+//    private final String userCareerMicroservice = "http://user-career-microservice/api/v1/users/";
+    private final String BASE_URL = "http://api-gateway/api/v1/";
 
     @Autowired
     private RestTemplate restTemplate;
@@ -22,7 +23,7 @@ public class UserAsyncService {
     @Async
     public CompletableFuture<UserDetailsDto> getUserDetailsUsingRestTemplate(int id) {
         ResponseEntity<UserDetailsDto> response
-                = restTemplate.getForEntity(userDetailsMicroservice + id, UserDetailsDto.class);
+                = restTemplate.getForEntity(BASE_URL + "users/" + id, UserDetailsDto.class);
 
         var userDetails = response.getBody();
         log.info("user={}", userDetails);
@@ -32,7 +33,7 @@ public class UserAsyncService {
     @Async
     public CompletableFuture<UserCareerDto> getUserCareerUsingRestTemplate(int id) {
         ResponseEntity<UserCareerDto> response
-                = restTemplate.getForEntity(userCareerMicroservice + id, UserCareerDto.class);
+                = restTemplate.getForEntity(BASE_URL + "user-career/" + id, UserCareerDto.class);
 
         var userCareer = response.getBody();
         log.info("userCareer={}", userCareer);
