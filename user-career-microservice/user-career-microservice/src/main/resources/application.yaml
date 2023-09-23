@@ -1,0 +1,2 @@
+server.port: 8072
+spring.application.name: user-career-microservice
