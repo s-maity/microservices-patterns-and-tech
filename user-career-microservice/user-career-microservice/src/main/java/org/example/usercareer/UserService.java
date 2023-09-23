@@ -8,9 +8,6 @@ import java.util.Arrays;
 public class UserService {
 
     public UserDto getUserCareerDetailsById(int id) {
-
-        someTimeConsumingProcess();
-
         return UserDto.builder()
                 .id(id)
                 .skills(Arrays.asList("Java", "Spring boot", "Microservices"))

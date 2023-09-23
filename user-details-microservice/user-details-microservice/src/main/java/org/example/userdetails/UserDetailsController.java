@@ -21,4 +21,11 @@ public class UserDetailsController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @GetMapping("/status/{id}")
+    public ResponseEntity<String> getUserStatus(@PathVariable("id") int id) {
+        var status = id % 2 == 0 ? "ACTIVE" : "INACTIVE";
+        return new ResponseEntity<>(status, HttpStatus.OK);
+    }
+
+
 }

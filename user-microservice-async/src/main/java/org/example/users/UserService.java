@@ -4,33 +4,36 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.Collections;
 
 @Service
 @Slf4j
 @AllArgsConstructor
 public class UserService {
 
-    private final UserAsyncService userAsyncService;
-
+    private final UserDetailsAggregateService userDetailsAggregateService;
+    private final UserCareerService userCareerService;
 
     public UserDto getUserById(int id) {
 
-        var userDetails = userAsyncService.getUserDetailsUsingRestTemplate(id);
-        var userCareer = userAsyncService.getUserCareerUsingRestTemplate(id);
+        //Circuit breaker
+        var userDetails = userDetailsAggregateService.getUserDetailsUsingRestTemplate(id);
 
-        CompletableFuture.allOf(userDetails, userCareer)
-                .join();
+        //Retry
+        var userCareer = userDetailsAggregateService.getUserCareerUsingRestTemplate(id);
 
-        return build(userDetails.join(), userCareer.join());
+        //TODO: reteLimiter
+        var status = "Active"; // userDetailsAggregateService.getUserStatus(id);
+        return build(userDetails, userCareer, status);
     }
 
-    private UserDto build(UserDetailsDto user, UserCareerDto career) {
+    private UserDto build(UserDetailsDto user, UserCareerDto career, String status) {
         return UserDto.builder()
                 .id(user.id())
                 .name(user.name())
                 .org(user.org())
-                .skills(career.skills())
+                .status(status)
+                .skills(user.id() != 0 ? career.skills() : Collections.emptyList())
                 .build();
     }
 }
