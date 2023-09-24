@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 public class UserAsyncService {
 
     private final String userDetailsMicroservice = "http://user-details-microservice/api/v1/users/";
-    private final String userCareerMicroservice = "http://user-career-microservice/api/v1/users/";
+    private final String userCareerMicroservice = "http://user-career-microservice/api/v1/user-career/";
 
     @Autowired
     private RestTemplate restTemplate;
