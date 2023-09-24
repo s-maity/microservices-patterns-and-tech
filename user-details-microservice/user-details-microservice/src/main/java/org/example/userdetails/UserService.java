@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class UserService {
 
     public UserDto getUserById(int id) {
-        someTimeConsumingProcess();
+//        someTimeConsumingProcess();
         return UserDto.builder()
                 .name("Sudipta Maity")
                 .id(id)

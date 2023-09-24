@@ -1,2 +1,3 @@
 server.port: 8073
 spring.application.name: user-microservice
+management.tracing.sampling.probability: 1.0

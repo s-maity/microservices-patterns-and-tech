@@ -13,8 +13,6 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class UserAsyncService {
 
-    //    private final String userDetailsMicroservice = "http://user-details-microservice/api/v1/users/";
-//    private final String userCareerMicroservice = "http://user-career-microservice/api/v1/users/";
     private final String BASE_URL = "http://api-gateway/api/v1/";
 
     @Autowired
