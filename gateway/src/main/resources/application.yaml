@@ -9,6 +9,12 @@ spring:
           uri: lb://USER-DETAILS-MICROSERVICE
           predicates:
             - Path=/api/v1/users/{id}
+          filters:
+            - SetPath=/api/v1/users/{id}
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/api/v1/users/fallback
 
         - id: user_career_details
           uri: lb://USER-CAREER-MICROSERVICE

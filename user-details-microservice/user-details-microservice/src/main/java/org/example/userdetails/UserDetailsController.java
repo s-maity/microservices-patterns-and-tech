@@ -21,4 +21,12 @@ public class UserDetailsController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @GetMapping("/fallback")
+    public ResponseEntity<UserDto> fallback(Exception exception) {
+        var user = UserDto.builder()
+                .name("Undefined")
+                .id(-1)
+                .build();
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 }
