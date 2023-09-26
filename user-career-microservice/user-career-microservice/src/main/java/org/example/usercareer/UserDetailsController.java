@@ -1,6 +1,7 @@
 package org.example.usercareer;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +16,17 @@ public class UserDetailsController {
 
     private final UserService userService;
 
+
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserCareerDetailsById(@PathVariable("id") int id) {
         var user = userService.getUserCareerDetailsById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/message")
+    public ResponseEntity<String> getMessage() {
+        var message = userService.getMessage();
+        System.out.println("message:" + message);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

@@ -1,11 +1,17 @@
 package org.example.usercareer;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
 @Service
+@RefreshScope
 public class UserService {
+
+    @Value("${app.microservices.message: Have patience}")
+    private String message;
 
     public UserDto getUserCareerDetailsById(int id) {
 
@@ -23,5 +29,9 @@ public class UserService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getMessage() {
+        return message;
     }
 }
